@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,14 +7,14 @@ using System.Threading.Tasks;
 
 namespace req4
 {
-    public class Song:IComparable
+    public class Song:IComparable<Song>
     {
-        private class RatingComparer : IComparer
+        private class RatingComparer : IComparer<Song>
         {
-            int IComparer.Compare(object x, object y)
+            int IComparer<Song>.Compare(Song x, Song y)
             {
-                Song c1 = (Song)x;
-                Song c2 = (Song)y;
+                Song c1 = x;
+                Song c2 = y;
 
                 if (c1.Rating > c2.Rating)
                     return 1;
@@ -28,12 +28,12 @@ namespace req4
             }
         }
 
-        private class PopularityComparer : IComparer
+        private class PopularityComparer : IComparer<Song>
         {
-            int IComparer.Compare(object x, object y)
+            int IComparer<Song>.Compare(Song x, Song y)
             {
-                Song c1 = (Song)x;
-                Song c2 = (Song)y;
+                Song c1 = x;
+                Song c2 = y;
 
                 if (c1.NumberOfDownloads > c2.NumberOfDownloads)
                     return 1;
@@ -47,14 +47,14 @@ namespace req4
             }
         }
 
-        public static IComparer Ratings()
+        public static IComparer<Song> Ratings()
         {
-            return (IComparer) new RatingComparer();
+            return (IComparer<Song>) new RatingComparer();
         }
 
-        public static IComparer Popularity()
+        public static IComparer<Song> Popularity()
         {
-            return (IComparer)new PopularityComparer();
+            return (IComparer<Song>)new PopularityComparer();
         }
         string _name;
         string _artist;
@@ -73,12 +73,12 @@ namespace req4
             _numberOfDownloads = numberOfDownloads;
         }
 
-        public string Name { get => _name; set => _name = value; }
-        public string Artist { get => _artist; set => _artist = value; }
-        public string SongType { get => _songType; set => _songType = value; }
-        public DateTime DateDownloaded { get => _dateDownloaded; set => _dateDownloaded = value; }
-        public double Rating { get => _rating; set => _rating = value; }
-        public int NumberOfDownloads { get => _numberOfDownloads; set => _numberOfDownloads = value; }
+        public string Name { get { return _name; }set {_name = value;} }
+        public string Artist { get { return _artist;} set { _artist = value;} }
+        public string SongType { get { return _songType;} set { _songType = value;} }
+        public DateTime DateDownloaded { get { return _dateDownloaded;} set { _dateDownloaded = value;} }
+        public double Rating { get {return  _rating;} set { _rating = value;} }
+        public int NumberOfDownloads { get { return  _numberOfDownloads; }set { _numberOfDownloads = value;} }
 
         public static Song CreateSong(string details)
         {
@@ -92,10 +92,10 @@ namespace req4
 
             return string.Format("{0} {1,15} {2,15} {3,15} {4,15} {5,15}",Name,Artist,SongType,DateDownloaded.ToShortDateString(),rate,NumberOfDownloads);
         }
-        public int CompareTo(object obj)
+        public int CompareTo(Song other)
         {   
-            Song s=(Song)obj;
-            return this.Name.CompareTo(s.Name);
+            
+            return this.Name.CompareTo(other.Name);
         }
 
         
