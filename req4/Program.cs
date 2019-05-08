@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -29,6 +29,7 @@ namespace req4
                     songList.Sort(Song.Ratings());
                     break;
                 case 3:
+                    songList.Sort(Song.Popularity());
                     break;
             }
             //fill code here.
@@ -39,4 +40,3 @@ namespace req4
         }
     }
 }
-
