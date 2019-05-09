@@ -43,8 +43,11 @@ namespace req5
             //fill code here.
             var calculateTypeList = from p in list
                                     group p by p.SongType into b
-                                    select new { b.Key, Value = b.Count() };
+                                    select new { Key=b.Key, Value = b.Count() };
+            //Converting to Dictionary
             Dictionary<string, int> n1 = calculateTypeList.ToDictionary(r => r.Key, r => r.Value);
+
+            //Add to SortedDictionary
             SortedDictionary<string, int> sortedByType = new SortedDictionary<string, int>();
             foreach (var ch in n1)
                 sortedByType.Add(ch.Key, ch.Value);

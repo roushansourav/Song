@@ -10,13 +10,10 @@ namespace req4
     {
         int IComparer<Song>.Compare(Song x, Song y)
         {
-            Song c1 = x;
-            Song c2 = y;
-
-            if (c1.Rating > c2.Rating)
+           if (x.Rating > y.Rating)
                 return 1;
 
-            if (c1.Rating < c2.Rating)
+            if (x.Rating < y.Rating)
                 return -1;
 
             else
@@ -28,5 +25,7 @@ namespace req4
         {
             return (IComparer<Song>)new RatingComparer();
         }
+
+        
     }
 }

@@ -9,14 +9,11 @@ namespace req4
     class PopularityComparer:IComparer<Song>
     {
         int IComparer<Song>.Compare(Song x, Song y)
-        {
-            Song c1 = x;
-            Song c2 = y;
-
-            if (c1.NumberOfDownloads > c2.NumberOfDownloads)
+        {            
+            if (x.NumberOfDownloads > y.NumberOfDownloads)
                 return 1;
 
-            if (c1.NumberOfDownloads < c2.NumberOfDownloads)
+            if (x.NumberOfDownloads < y.NumberOfDownloads)
                 return -1;
 
             else
