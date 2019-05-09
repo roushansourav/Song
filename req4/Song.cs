@@ -7,55 +7,8 @@ using System.Threading.Tasks;
 
 namespace req4
 {
-    public class Song:IComparable
-    {
-        private class RatingComparer : IComparer
-        {
-            int IComparer.Compare(object x, object y)
-            {
-                Song c1 = (Song)x;
-                Song c2 = (Song)y;
-
-                if (c1.Rating > c2.Rating)
-                    return 1;
-
-                if (c1.Rating < c2.Rating)
-                    return -1;
-
-                else
-                    return 0;
-
-            }
-        }
-
-        private class PopularityComparer : IComparer
-        {
-            int IComparer.Compare(object x, object y)
-            {
-                Song c1 = (Song)x;
-                Song c2 = (Song)y;
-
-                if (c1.NumberOfDownloads > c2.NumberOfDownloads)
-                    return 1;
-
-                if (c1.NumberOfDownloads < c2.NumberOfDownloads)
-                    return -1;
-
-                else
-                    return 0;
-
-            }
-        }
-
-        public static IComparer Ratings()
-        {
-            return (IComparer) new RatingComparer();
-        }
-
-        public static IComparer Popularity()
-        {
-            return (IComparer)new PopularityComparer();
-        }
+    public class Song : IComparable<Song>
+    {             
         string _name;
         string _artist;
         string _songType;
@@ -73,12 +26,12 @@ namespace req4
             _numberOfDownloads = numberOfDownloads;
         }
 
-        public string Name { get => _name; set => _name = value; }
-        public string Artist { get => _artist; set => _artist = value; }
-        public string SongType { get => _songType; set => _songType = value; }
-        public DateTime DateDownloaded { get => _dateDownloaded; set => _dateDownloaded = value; }
-        public double Rating { get => _rating; set => _rating = value; }
-        public int NumberOfDownloads { get => _numberOfDownloads; set => _numberOfDownloads = value; }
+        public string Name { get { return _name; } set { _name = value; } }
+        public string Artist { get { return _artist; } set { _artist = value; } }
+        public string SongType { get { return _songType; } set { _songType = value; } }
+        public DateTime DateDownloaded { get { return _dateDownloaded; } set { _dateDownloaded = value; } }
+        public double Rating { get { return _rating; } set { _rating = value; } }
+        public int NumberOfDownloads { get { return _numberOfDownloads; } set { _numberOfDownloads = value; } }
 
         public static Song CreateSong(string details)
         {
@@ -90,14 +43,14 @@ namespace req4
         {
             string rate = string.Format("{0:0.0}", Rating);
 
-            return string.Format("{0} {1,15} {2,15} {3,15} {4,15} {5,15}",Name,Artist,SongType,DateDownloaded.ToShortDateString(),rate,NumberOfDownloads);
+            return string.Format("{0} {1,15} {2,15} {3,15} {4,15} {5,15}", Name, Artist, SongType, DateDownloaded.ToShortDateString(), rate, NumberOfDownloads);
         }
-        public int CompareTo(object obj)
-        {   
-            Song s=(Song)obj;
-            return this.Name.CompareTo(s.Name);
+        public int CompareTo(Song other)
+        {
+
+            return this.Name.CompareTo(other.Name);
         }
 
-        
+
     }
 }
